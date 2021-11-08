@@ -27,6 +27,20 @@ resource "aws_s3_bucket" "access_log" {
 
   acl = "log-delivery-write"
 
+  dynamic "object_lock_configuration" {
+    for_each = var.enable_object_lock ? [0] : []
+    content {
+      object_lock_enabled = "Enabled"
+      rule {
+        default_retention {
+          mode = var.object_lock_default_mode
+          days = var.object_lock_default_days
+        }
+      }
+    }
+  }
+
+
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
@@ -85,6 +99,19 @@ resource "aws_s3_bucket" "content" {
     rule {
       apply_server_side_encryption_by_default {
         sse_algorithm = "AES256"
+      }
+    }
+  }
+
+  dynamic "object_lock_configuration" {
+    for_each = var.enable_object_lock ? [0] : []
+    content {
+      object_lock_enabled = "Enabled"
+      rule {
+        default_retention {
+          mode = var.object_lock_default_mode
+          days = var.object_lock_default_days
+        }
       }
     }
   }

@@ -25,3 +25,18 @@ variable "tags" {
     "Terraform" = true
   }
 }
+
+variable "enable_object_lock" {
+  description = "A boolean that indicates if s3 object lock should be enabled on the bucket"
+  default     = false
+}
+
+variable "object_lock_default_days" {
+  description = "The number of days for default object lock retention"
+  default     = "1"
+}
+
+variable "object_lock_default_mode" {
+  description = "The mode of object lock to enable. Can be COMPLIANCE or GOVERNANCE"
+  default     = "GOVERNANCE"
+}

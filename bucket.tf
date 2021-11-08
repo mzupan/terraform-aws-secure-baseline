@@ -37,6 +37,10 @@ module "audit_log_bucket" {
   force_destroy                     = var.audit_log_bucket_force_destroy
   enabled                           = !local.use_external_bucket
 
+  enable_object_lock       = var.audit_log_bucket_object_lock
+  object_lock_default_days = var.audit_log_bucket_object_lock_retention_days
+  object_lock_default_mode = var.audit_log_bucket_object_lock_mode
+
   tags = var.tags
 
   depends_on = [module.s3_baseline]

@@ -85,6 +85,21 @@ variable "use_external_audit_log_bucket" {
   default     = false
 }
 
+variable "audit_log_bucket_object_lock" {
+  description = "A boolean that indicates if the audit log bucket should have S3 Object Lock enabled.  This can only be set on first creation of the bucket."
+  default     = false
+}
+
+variable "audit_log_bucket_object_lock_mode" {
+  description = "The default Object Lock mode.  Can be GOVERNANCE or COMPLIANCE"
+  default     = "GOVERNANCE"
+}
+
+variable "audit_log_bucket_object_lock_retention_days" {
+  description = "The default number of days to lock an S3 object with S3 Object Lock"
+  default     = "1"
+}
+
 # --------------------------------------------------------------------------------------------------
 # Variables for iam-baseline module.
 # --------------------------------------------------------------------------------------------------
